@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Projects | Jira Specialist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .custom-bg {
+            background-image: url('marin.png'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .glass {
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .project-card:hover {
+            border-color: rgba(6, 182, 212, 0.5);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="custom-bg min-h-screen font-sans text-white">
+    <div class="min-h-screen bg-slate-950/60 py-12 px-4 md:px-12">
+        
+        <div class="max-w-5xl mx-auto">
+            <div class="flex justify-between items-center mb-10">
+                <a href="index.html" class="group flex items-center text-slate-400 hover:text-cyan-400 transition-all">
+                    <div class="p-2 bg-slate-800 rounded-lg mr-3 group-hover:bg-cyan-500/20">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                    </div>
+                    <span class="text-xs font-black uppercase tracking-widest">Back to Console</span>
+                </a>
+                <div class="text-right">
+                    <h1 class="text-2xl font-black uppercase italic tracking-tighter italic">Project Registry</h1>
+                    <p class="text-[10px] text-cyan-400 font-bold uppercase tracking-[0.3em]">Operational History v2.0</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6">
+                
+                <div class="glass project-card p-8 rounded-[2rem] transition-all">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <span class="text-cyan-400 text-[10px] font-black uppercase tracking-widest">Department 01</span>
+                            <h2 class="text-2xl font-black uppercase italic tracking-tight">People and Culture</h2>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-[9px] font-bold border border-white/5">Project Intake</span>
+                            <span class="px-3 py-1 bg-slate-800 rounded-full text-[9px] font-bold border border-white/5">Analytics Logs</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed mb-4">
+                        Modernized the "People Platforms" ecosystem by developing a **Project Intake** system and a structured **Analytics Defect Log**. Optimized HR request flows to ensure data integrity between platform tools and internal reporting.
+                    </p>
+                </div>
+
+                <div class="glass project-card p-8 rounded-[2rem] transition-all">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <span class="text-cyan-400 text-[10px] font-black uppercase tracking-widest">Department 02</span>
+                            <h2 class="text-2xl font-black uppercase italic tracking-tight">ePMO</h2>
+                        </div>
+                        <span class="px-3 py-1 bg-slate-800 rounded-full text-[9px] font-bold border border-white/5 w-fit">Demand Intake</span>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed mb-4">
+                        Engineered a robust **Demand Intake** portal for the Project Management Office. Focused on standardizing project scoring and resource capacity planning through custom Jira Service Management workflows.
+                    </p>
+                </div>
+
+                <div class="glass project-card p-8 rounded-[2rem] border-l-4 border-l-cyan-500 transition-all shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-cyan-400 text-[10px] font-black uppercase tracking-widest">Department 03</span>
+                                <span class="text-[8px] bg-cyan-500 text-black px-2 py-0.5 font-black uppercase rounded">High Complexity</span>
+                            </div>
+                            <h2 class="text-2xl font-black uppercase italic tracking-tight">Global Business Group</h2>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 bg-cyan-900/40 text-cyan-300 rounded-full text-[9px] font-bold border border-cyan-500/20">Pre-Sales</span>
+                            <span class="px-3 py-1 bg-cyan-900/40 text-cyan-300 rounded-full text-[9px] font-bold border border-cyan-500/20">Service Delivery</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed mb-4">
+                        Developed a cross-functional system bridging **Pre-Sales** and **Service Delivery Management**. This high-impact project involved complex JQL filters and automation to manage the handoff from sales engineering to operational delivery, ensuring no data loss in the global lifecycle.
+                    </p>
+                </div>
+
+                <div class="glass project-card p-8 rounded-[2rem] transition-all">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <span class="text-cyan-400 text-[10px] font-black uppercase tracking-widest">Department 04</span>
+                            <h2 class="text-2xl font-black uppercase italic tracking-tight">Finance and Accounting</h2>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed mb-4">
+                        Built a suite of financial tools including **OSP Material Requests**, **Finance Billing**, and automated **Financial Reporting**. These tools automated the audit trail for material procurement and billing cycles.
+                    </p>
+                </div>
+
+                <div class="glass project-card p-8 rounded-[2rem] transition-all">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <span class="text-cyan-400 text-[10px] font-black uppercase tracking-widest">Department 05</span>
+                            <h2 class="text-2xl font-black uppercase italic tracking-tight">ComClark Finance</h2>
+                        </div>
+                        <span class="px-3 py-1 bg-slate-800 rounded-full text-[9px] font-bold border border-white/5 w-fit">Payables</span>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed mb-4">
+                        Streamlined the **Payables** process by creating a dedicated workflow to track vendor invoices, approval chains, and payment statuses within a highly secure Jira environment.
+                    </p>
+                </div>
+
+                <div class="glass project-card p-8 rounded-[2rem] transition-all">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <span class="text-cyan-400 text-[10px] font-black uppercase tracking-widest">Department 06</span>
+                            <h2 class="text-2xl font-black uppercase italic tracking-tight leading-none">Workplace, Premises &<br>Fleet Management</h2>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                        <div class="p-3 bg-white/5 rounded-xl border border-white/10 text-center">
+                            <p class="text-[9px] font-black uppercase text-slate-500">Service A</p>
+                            <p class="text-[11px] font-bold">Repair & Maintenance</p>
+                        </div>
+                        <div class="p-3 bg-white/5 rounded-xl border border-white/10 text-center">
+                            <p class="text-[9px] font-black uppercase text-slate-500">Service B</p>
+                            <p class="text-[11px] font-bold">Trip Ticket (Travel)</p>
+                        </div>
+                        <div class="p-3 bg-white/5 rounded-xl border border-white/10 text-center">
+                            <p class="text-[9px] font-black uppercase text-slate-500">Service C</p>
+                            <p class="text-[11px] font-bold">Fleet Card & RFID</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Designed an end-to-end logistics management system. Automated **Authority to Travel** requests and **RFID/Fleet Card** provisioning, integrating physical maintenance requests into a digital trackable queue.
+                    </p>
+                </div>
+
+            </div>
+            
+            <div class="mt-12 text-center">
+                <p class="text-slate-500 text-[10px] uppercase font-bold tracking-[0.5em] mb-6">End of Project Records</p>
+                <a href="viber://chat?number=+639956674596" class="inline-block px-10 py-4 bg-cyan-600 hover:bg-cyan-500 text-white font-black uppercase tracking-widest rounded-2xl transition-all shadow-lg shadow-cyan-900/40">
+                    Discuss System Implementation
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
