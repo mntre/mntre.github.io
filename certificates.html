@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verified Credentials | Jira Specialist</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .custom-bg {
+            background-image: url('marin.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .glass-dark {
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .jira-badge-done {
+            background-color: #00875A; /* Jira Success Green */
+            color: white;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body class="custom-bg min-h-screen font-sans text-white">
+
+    <div class="min-h-screen bg-slate-950/75 py-12 px-6">
+        
+        <div class="max-w-6xl mx-auto">
+            
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
+                <a href="index.html" class="group flex items-center gap-2 text-cyan-400 font-bold hover:text-white transition-all tracking-widest text-sm">
+                    <span class="text-2xl group-hover:-translate-x-2 transition-transform">←</span> 
+                    RETURN TO TERMINAL
+                </a>
+                <div class="text-right">
+                    <h1 class="text-4xl font-black uppercase italic tracking-tighter border-b-4 border-cyan-500 pb-1">Technical Credentials</h1>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                
+                <div class="glass-dark rounded-3xl overflow-hidden group transition-all duration-500 hover:shadow-[0_0_40px_rgba(34,211,238,0.25)] border-t-4 border-cyan-500">
+                    <div class="overflow-hidden bg-black/40">
+                        <img src="cert1.jpg" alt="Atlassian ITSM" class="w-full h-72 object-contain p-4 transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-black leading-tight uppercase tracking-tight">
+                            Atlassian IT Service Management (ITSM) Professional Certificate
+                        </h3>
+                    </div>
+                </div>
+
+                <div class="glass-dark rounded-3xl overflow-hidden group transition-all duration-500 hover:shadow-[0_0_40px_rgba(34,211,238,0.25)] border-t-4 border-blue-500">
+                    <div class="overflow-hidden bg-black/40">
+                        <img src="cert2.jpg" alt="Jira Administration Guide" class="w-full h-72 object-contain p-4 transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-black leading-tight uppercase tracking-tight">
+                            Complete Guide to Jira Administration: Configuration, Management, and Automation
+                        </h3>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-16 p-8 rounded-3xl bg-cyan-950/20 border border-cyan-500/20 text-center italic text-slate-300">
+                "Continuous learning is the core of effective automation. These certifications represent my commitment to mastering the Atlassian ecosystem."
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
