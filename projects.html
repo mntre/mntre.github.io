@@ -3,27 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Projects | Satoru Gojo Version</title>
+    <title>Project Registry | Yumeko Jabami Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=JetBrains+Mono:wght@400;700&display=swap');
         
-        body { font-family: 'Space Grotesk', sans-serif; background-color: #020617; }
+        body { font-family: 'Space Grotesk', sans-serif; background-color: #000000; }
         
         .glass {
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(220, 38, 38, 0.15);
         }
         
-        /* Hollow Purple Hover Effect */
+        /* Kakegurui Red Hover Effect */
         .project-card:hover {
-            border-color: rgba(168, 85, 247, 0.5); /* Purple */
-            transform: translateY(-4px);
-            box-shadow: 0 0 40px rgba(168, 85, 247, 0.15);
+            border-color: rgba(220, 38, 38, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(220, 38, 38, 0.2);
         }
 
-        #bg-video {
+        /* Responsive Video Background Logic */
+        .video-bg {
             position: fixed;
             top: 50%;
             left: 50%;
@@ -36,30 +38,44 @@
             object-fit: cover;
         }
 
-        .text-void { color: #e2e8f0; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        /* Default: Show Mobile Video, Hide Desktop */
+        #mobile-video { display: block; }
+        #desktop-video { display: none; }
+
+        /* Desktop Breakpoint: Show Desktop Video, Hide Mobile */
+        @media (min-width: 768px) {
+            #mobile-video { display: none; }
+            #desktop-video { display: block; }
+        }
+
+        .text-void { color: #ffffff; text-shadow: 0 0 15px rgba(220, 38, 38, 0.5); }
     </style>
 </head>
 <body class="min-h-screen text-white overflow-x-hidden">
 
-    <video autoplay muted loop playsinline id="bg-video">
-        <source src="gojo.mp4" type="video/mp4">
+    <video autoplay muted loop playsinline id="mobile-video" class="video-bg">
+        <source src="girl1.mp4" type="video/mp4">
     </video>
 
-    <div class="fixed inset-0 bg-slate-950/80 -z-[90]"></div>
+    <video autoplay muted loop playsinline id="desktop-video" class="video-bg">
+        <source src="girl2.mp4" type="video/mp4">
+    </video>
+
+    <div class="fixed inset-0 bg-gradient-to-b from-black/60 via-black/85 to-red-950/40 -z-[90]"></div>
 
     <div class="relative z-10 py-12 px-4 md:px-12">
         <div class="max-w-5xl mx-auto">
             
-            <div class="flex justify-between items-center mb-16 border-b border-white/5 pb-8">
-                <a href="index.html" class="group flex items-center text-slate-400 hover:text-white transition-all">
-                    <div class="p-2 bg-slate-800 rounded-lg mr-3 group-hover:bg-purple-500/20">
+            <div class="flex justify-between items-center mb-16 border-b border-red-600/30 pb-8">
+                <a href="index.html" class="group flex items-center text-slate-400 hover:text-red-500 transition-all">
+                    <div class="p-2 bg-red-950/40 rounded-lg mr-3 group-hover:bg-red-600 group-hover:text-white transition-all">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
                     </div>
-                    <span class="text-[10px] font-black uppercase tracking-widest font-mono">Exit Domain</span>
+                    <span class="text-[10px] font-black uppercase tracking-widest font-mono">Leave the Table</span>
                 </a>
                 <div class="text-right">
                     <h1 class="text-3xl font-black uppercase italic tracking-tighter text-void">Project Registry</h1>
-                    <p class="text-[10px] text-purple-400 font-bold uppercase tracking-[0.4em]">Six Eyes Intelligence v2.0</p>
+                    <p class="text-[10px] text-red-500 font-bold uppercase tracking-[0.4em]">Dealer Status: Active</p>
                 </div>
             </div>
 
@@ -68,43 +84,43 @@
                 <div class="glass project-card p-10 rounded-[2.5rem] transition-all relative overflow-hidden group">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                         <div>
-                            <span class="text-purple-400 text-[10px] font-black uppercase tracking-widest font-mono">Logic Gate 01</span>
-                            <h2 class="text-2xl font-black uppercase italic tracking-tight group-hover:text-purple-300 transition-colors">People and Culture</h2>
+                            <span class="text-red-500 text-[10px] font-black uppercase tracking-widest font-mono">Betting Round 01</span>
+                            <h2 class="text-2xl font-black uppercase italic tracking-tight group-hover:text-red-400 transition-colors">People and Culture</h2>
                         </div>
                         <div class="flex gap-2">
-                            <span class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-[9px] font-bold border border-blue-500/20">Project Intake</span>
-                            <span class="px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-[9px] font-bold border border-purple-500/20">Analytics Logs</span>
+                            <span class="px-3 py-1 bg-red-600/10 text-red-500 rounded-full text-[9px] font-bold border border-red-600/20">Project Intake</span>
+                            <span class="px-3 py-1 bg-white/5 text-slate-300 rounded-full text-[9px] font-bold border border-white/10">Analytics Logs</span>
                         </div>
                     </div>
-                    <p class="text-sm text-slate-400 leading-relaxed mb-4">
+                    <p class="text-sm text-slate-400 leading-relaxed">
                         Modernized the "People Platforms" ecosystem by developing a **Project Intake** system and a structured **Analytics Defect Log**. Optimized HR request flows to ensure data integrity between platform tools and internal reporting.
                     </p>
                 </div>
 
-                <div class="glass project-card p-10 rounded-[2.5rem] border-l-4 border-l-purple-500 transition-all shadow-[0_0_30px_rgba(168,85,247,0.1)]">
+                <div class="glass project-card p-10 rounded-[2.5rem] border-l-4 border-l-red-600 transition-all">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                         <div>
                             <div class="flex items-center gap-2 mb-1">
-                                <span class="text-purple-400 text-[10px] font-black uppercase tracking-widest font-mono">Logic Gate 03</span>
-                                <span class="text-[8px] bg-purple-500 text-white px-2 py-0.5 font-black uppercase rounded">Maximum Output</span>
+                                <span class="text-red-500 text-[10px] font-black uppercase tracking-widest font-mono">Betting Round 02</span>
+                                <span class="text-[8px] bg-red-600 text-white px-2 py-0.5 font-black uppercase rounded tracking-widest">All In</span>
                             </div>
                             <h2 class="text-2xl font-black uppercase italic tracking-tight">Global Business Group</h2>
                         </div>
                         <div class="flex gap-2">
-                            <span class="px-3 py-1 bg-blue-900/40 text-blue-300 rounded-full text-[9px] font-bold border border-blue-500/20">Pre-Sales</span>
-                            <span class="px-3 py-1 bg-purple-900/40 text-purple-300 rounded-full text-[9px] font-bold border border-purple-500/20">Service Delivery</span>
+                            <span class="px-3 py-1 bg-red-600/10 text-red-500 rounded-full text-[9px] font-bold border border-red-600/20">Pre-Sales</span>
+                            <span class="px-3 py-1 bg-white/5 text-slate-300 rounded-full text-[9px] font-bold border border-white/10">Service Delivery</span>
                         </div>
                     </div>
-                    <p class="text-sm text-slate-400 leading-relaxed mb-4">
+                    <p class="text-sm text-slate-400 leading-relaxed">
                         Developed a cross-functional system bridging **Pre-Sales** and **Service Delivery Management**. This high-impact project involved complex JQL filters and automation to manage the handoff from sales engineering to operational delivery.
                     </p>
                 </div>
 
-                </div>
+            </div>
             
             <div class="mt-20 text-center">
-                <p class="text-slate-600 text-[10px] uppercase font-bold tracking-[0.5em] mb-6">Execution Complete</p>
-                <a href="viber://chat?number=+639956674596" class="inline-block px-12 py-5 bg-white text-black font-black uppercase tracking-widest rounded-2xl hover:bg-purple-500 hover:text-white transition-all shadow-xl">
+                <p class="text-slate-600 text-[10px] uppercase font-bold tracking-[0.5em] mb-6">The stakes have never been higher</p>
+                <a href="viber://chat?number=+639956674596" class="inline-block px-12 py-5 bg-red-600 text-white font-black uppercase tracking-widest rounded-2xl hover:bg-white hover:text-black transition-all shadow-xl shadow-red-900/20">
                     Discuss System Implementation
                 </a>
             </div>
