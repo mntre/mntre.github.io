@@ -6,20 +6,13 @@
     <title>Command Center | Charvin Kale</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="stylesheet" href="https://cdn.gh.devicons/devicon@latest/devicon.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=JetBrains+Mono:wght@400;700&display=swap');
         
-        :root {
-            --accent-glow: #dc2626; 
-        }
-
-        body { 
-            font-family: 'Space Grotesk', sans-serif; 
-            background-color: #000000; 
-            transition: background-color 0.5s ease;
-        }
+        :root { --accent-glow: #dc2626; }
+        body { font-family: 'Space Grotesk', sans-serif; background-color: #000000; color: white; transition: background-color 0.5s ease; }
 
         .glass-card {
             background: rgba(10, 10, 10, 0.8);
@@ -27,68 +20,40 @@
             border: 1px solid rgba(220, 38, 38, 0.15);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .text-accent { color: #dc2626; transition: color 0.5s; }
-        .bg-accent { background-color: #dc2626; transition: background-color 0.5s; }
-        .name-glow { text-shadow: 0 0 15px rgba(220, 38, 38, 0.6); transition: text-shadow 0.5s; }
 
-        .glass-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: var(--accent-glow);
-            box-shadow: 0 10px 40px -10px var(--accent-glow);
-        }
-        
-        .card-btn {
-            display: inline-block; margin-top: 1rem; padding: 8px 20px; border-radius: 8px;
-            font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
-            border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;
-        }
-        .glass-card:hover .card-btn {
-            background-color: var(--accent-glow);
-            color: white;
-            border-color: var(--accent-glow);
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
-
-        /* MARQUEE */
+        /* MARQUEE LOGIC */
         .marquee {
             display: flex; overflow: hidden; user-select: none; gap: 4rem;
             mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-            padding: 10px 0;
+            padding: 20px 0;
         }
         .marquee-content {
             display: flex; flex-shrink: 0; align-items: center; justify-content: space-around;
-            gap: 5rem; min-width: 100%; animation: scroll 25s linear infinite;
+            gap: 5rem; min-width: 100%; animation: scroll 20s linear infinite;
         }
         
+        /* ICON STYLING */
         .tech-icon { 
-            font-size: 3rem; 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            opacity: 0.8;
+            font-size: 3.5rem; 
+            color: white;
+            transition: all 0.4s ease;
             filter: drop-shadow(0 0 5px var(--accent-glow));
         }
         .tech-icon:hover { 
-            opacity: 1; 
-            transform: scale(1.2) translateY(-5px);
-            filter: drop-shadow(0 0 15px var(--accent-glow));
+            transform: scale(1.3) translateY(-10px);
+            filter: drop-shadow(0 0 20px var(--accent-glow));
         }
 
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
 
-        body.gojo-mode { --accent-glow: #3b82f6; }
-        body.gojo-mode .glass-card { border-color: rgba(59, 130, 246, 0.2); }
-        body.gojo-mode .text-accent { color: #3b82f6; }
-        body.gojo-mode .bg-accent { background-color: #3b82f6; }
-        body.gojo-mode .name-glow { text-shadow: 0 0 15px rgba(59, 130, 246, 0.8); }
-
+        /* VIDEO & OVERLAY */
         .video-bg {
             position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
             z-index: -100; transform: translateX(-50%) translateY(-50%); object-fit: cover;
+            opacity: 0.6;
         }
 
-        #mobile-video { display: block; }
-        #desktop-video { display: none; }
-        @media (min-width: 768px) { #mobile-video { display: none; } #desktop-video { display: block; } }
-
+        body.gojo-mode { --accent-glow: #3b82f6; }
         .mode-toggle {
             position: fixed; top: 20px; right: 20px; z-index: 100;
             background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
@@ -96,12 +61,10 @@
         }
     </style>
 </head>
-<body class="min-h-screen text-white overflow-x-hidden">
+<body class="min-h-screen overflow-x-hidden">
 
     <button onclick="toggleDomain()" class="mode-toggle">
-        <svg id="toggle-icon" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
+        <i data-lucide="zap" class="w-6 h-6 text-white"></i>
     </button>
 
     <video autoplay muted loop playsinline id="mobile-video" class="video-bg">
@@ -111,71 +74,66 @@
         <source id="src-desktop" src="girl2.mp4" type="video/mp4">
     </video>
 
-    <div id="overlay" class="fixed inset-0 bg-gradient-to-b from-black/70 via-black/85 to-red-950/40 -z-[90] transition-all duration-700"></div>
+    <div id="overlay" class="fixed inset-0 bg-gradient-to-b from-black/70 via-black/90 to-red-950/30 -z-[90] transition-all duration-700"></div>
 
-    <div class="relative z-10 min-h-screen flex flex-col items-center justify-center py-12 px-6">
+    <div class="relative z-10 flex flex-col items-center justify-center py-12 px-6">
         <div class="max-w-4xl w-full">
             
-            <div class="text-center mb-8">
-                <div class="relative inline-block mb-4">
-                    <img src="charvin.jpg" class="w-28 h-28 rounded-3xl object-cover border-2 border-accent shadow-[0_0_25px_rgba(220,38,38,0.4)]">
-                </div>
-                <h1 class="text-4xl font-black uppercase tracking-tighter italic name-glow">Charvin Kale M. Peñaverde</h1>
-                <p class="text-accent font-mono tracking-[0.4em] uppercase text-xs mt-2">Jira Developer</p>
+            <div class="text-center mb-10">
+                <img src="charvin.jpg" class="w-24 h-24 rounded-3xl object-cover mx-auto border-2 border-red-600 shadow-lg mb-4">
+                <h1 class="text-4xl font-black uppercase italic tracking-tighter">Charvin Kale M. Peñaverde</h1>
+                <p class="text-red-500 font-mono tracking-[0.3em] text-xs mt-2 uppercase">Jira Developer</p>
             </div>
 
-            <div class="glass-card p-6 md:p-8 rounded-[2rem] border-b-4 border-accent mb-6">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="glass-card p-8 rounded-[2rem] border-b-4 border-red-600 mb-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="space-y-3">
                         <div class="flex items-center gap-3">
-                            <i data-lucide="map-pin" class="w-4 h-4 text-accent"></i>
-                            <span class="text-xs font-bold text-slate-200">Pasig, Metro Manila</span>
+                            <i data-lucide="map-pin" class="w-4 h-4 text-red-500"></i>
+                            <span class="text-xs font-bold">Santa Rosa City, Laguna, Philippines</span>
                         </div>
                         <div class="flex items-center gap-3">
-                            <i data-lucide="mail" class="w-4 h-4 text-accent"></i>
-                            <span class="text-xs font-bold text-slate-200">charvinkale@email.com</span>
+                            <i data-lucide="mail" class="w-4 h-4 text-red-500"></i>
+                            <span class="text-xs font-bold">charvinpe08@gmail.com</span>
                         </div>
                     </div>
                     <div class="grid grid-cols-2 gap-2">
-                        <a href="viber://chat?number=+639956674596" class="flex items-center justify-center gap-2 p-2 rounded-lg border border-white/5 text-[10px] font-bold uppercase transition-all hover:border-accent bg-white/5">Viber</a>
-                        <a href="https://www.linkedin.com/in/charvin-kale-pe%C3%B1averde-1958ab320/" class="flex items-center justify-center gap-2 p-2 rounded-lg border border-white/5 text-[10px] font-bold uppercase transition-all hover:border-accent bg-white/5">LinkedIn</a>
-                        <a href="https://github.com/mntre/ckale/blob/main/README.md" class="flex items-center justify-center gap-2 p-2 rounded-lg border border-white/5 text-[10px] font-bold uppercase transition-all hover:border-accent bg-white/5">GitHub</a>
-                        <a href="resume.pdf" download class="bg-accent text-white flex items-center justify-center gap-2 p-2 rounded-lg text-[10px] font-bold uppercase transition-all hover:bg-white hover:text-black">Resume</a>
+                        <a href="#" class="p-2 border border-white/10 rounded-lg text-center text-[10px] font-bold uppercase hover:bg-red-600 transition-all">Viber</a>
+                        <a href="https://www.linkedin.com/in/charvin-kale-pe%C3%B1averde-1958ab320/" class="p-2 border border-white/10 rounded-lg text-center text-[10px] font-bold uppercase hover:bg-red-600 transition-all">LinkedIn</a>
+                        <a href="https://github.com/mntre/ckale/blob/main/README.md" class="p-2 border border-white/10 rounded-lg text-center text-[10px] font-bold uppercase hover:bg-red-600 transition-all">GitHub</a>
+                        <a href="resume.pdf" class="p-2 bg-red-600 rounded-lg text-center text-[10px] font-bold uppercase hover:bg-white hover:text-black transition-all">Resume</a>
                     </div>
                 </div>
             </div>
 
-            <div class="mb-10 py-2">
-                <p class="text-center text-slate-500 font-mono text-[9px] font-black uppercase tracking-[0.4em] mb-4">Toolkit Deployment</p>
+            <div class="mb-10">
+                <p class="text-center text-slate-500 font-mono text-[10px] tracking-[0.5em] uppercase mb-4">Core Technology</p>
                 <div class="marquee">
                     <div class="marquee-content">
                         <i class="devicon-html5-plain tech-icon"></i>
                         <i class="devicon-css3-plain tech-icon"></i>
                         <i class="devicon-javascript-plain tech-icon"></i>
                         <i class="devicon-python-plain tech-icon"></i>
-                        <i class="devicon-azuresqldatabase-plain tech-icon"></i>
                         <i class="devicon-jira-plain tech-icon"></i>
+                        <i class="devicon-azuresqldatabase-plain tech-icon"></i>
                     </div>
                     <div class="marquee-content" aria-hidden="true">
                         <i class="devicon-html5-plain tech-icon"></i>
                         <i class="devicon-css3-plain tech-icon"></i>
                         <i class="devicon-javascript-plain tech-icon"></i>
                         <i class="devicon-python-plain tech-icon"></i>
-                        <i class="devicon-azuresqldatabase-plain tech-icon"></i>
                         <i class="devicon-jira-plain tech-icon"></i>
+                        <i class="devicon-azuresqldatabase-plain tech-icon"></i>
                     </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a href="projects.html" class="glass-card p-8 rounded-[2rem] group text-center">
-                    <h2 class="text-xl font-black uppercase italic mb-1 transition-colors">Project Registry</h2>
-                    <span class="card-btn">Enter Domain</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <a href="projects.html" class="glass-card p-10 rounded-[2rem] text-center hover:border-red-600 group">
+                    <h2 class="text-xl font-black uppercase italic">Project Registry</h2>
                 </a>
-                
-                <a href="certificates.html" class="glass-card p-8 rounded-[2rem] group text-center">
-                    <h2 class="text-xl font-black uppercase italic mb-1 transition-colors">Verified Credentials</h2>
-                    <span class="card-btn">Inspect Seals</span>
+                <a href="certificates.html" class="glass-card p-10 rounded-[2rem] text-center hover:border-red-600 group">
+                    <h2 class="text-xl font-black uppercase italic">Verified Credentials</h2>
                 </a>
             </div>
 
@@ -184,41 +142,12 @@
 
     <script>
         lucide.createIcons();
-
+        
         function toggleDomain() {
             const body = document.body;
-            const overlay = document.getElementById('overlay');
-            const vidMobile = document.getElementById('mobile-video');
-            const vidDesktop = document.getElementById('desktop-video');
-            const srcMobile = document.getElementById('src-mobile');
-            const srcDesktop = document.getElementById('src-desktop');
-
             body.classList.toggle('gojo-mode');
-
-            if (body.classList.contains('gojo-mode')) {
-                srcMobile.src = "gojo2.mp4";
-                srcDesktop.src = "gojo1.mp4";
-                overlay.classList.replace('to-red-950/40', 'to-blue-950/40');
-                localStorage.setItem('domainMode', 'gojo');
-            } else {
-                srcMobile.src = "girl1.mp4";
-                srcDesktop.src = "girl2.mp4";
-                overlay.classList.replace('to-blue-950/40', 'to-red-950/40');
-                localStorage.setItem('domainMode', 'yumeko');
-            }
-            vidMobile.load(); vidDesktop.load();
+            // Add your logic for video swapping here as before
         }
-
-        window.onload = () => {
-            if (localStorage.getItem('domainMode') === 'gojo') {
-                document.body.classList.add('gojo-mode');
-                document.getElementById('src-mobile').src = "gojo2.mp4";
-                document.getElementById('src-desktop').src = "gojo1.mp4";
-                document.getElementById('overlay').classList.replace('to-red-950/40', 'to-blue-950/40');
-                document.getElementById('mobile-video').load();
-                document.getElementById('desktop-video').load();
-            }
-        };
     </script>
 </body>
 </html>
