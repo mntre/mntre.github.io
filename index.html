@@ -6,6 +6,8 @@
     <title>Command Center | Charvin Kale</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=JetBrains+Mono:wght@400;700&display=swap');
         
@@ -24,7 +26,6 @@
         }
         .text-accent { color: #dc2626; transition: color 0.5s; }
         .bg-accent { background-color: #dc2626; transition: background-color 0.5s; }
-        .border-accent { border-color: #dc2626; transition: border-color 0.5s; }
         .name-glow { text-shadow: 0 0 15px rgba(220, 38, 38, 0.6); transition: text-shadow 0.5s; }
 
         /* HOVER STATES */
@@ -35,39 +36,42 @@
         }
         
         .card-btn {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 8px 20px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
+            display: inline-block; margin-top: 1rem; padding: 8px 20px; border-radius: 8px;
+            font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+            border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;
         }
         .glass-card:hover .card-btn {
-            background-color: #dc2626;
-            color: white;
-            border-color: #dc2626;
+            background-color: #dc2626; color: white; border-color: #dc2626;
             box-shadow: 0 0 15px rgba(220, 38, 38, 0.4);
         }
+
+        /* TECH STACK MARQUEE */
+        .marquee {
+            display: flex; overflow: hidden; user-select: none; gap: 4rem;
+            mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent);
+        }
+        .marquee-content {
+            display: flex; flex-shrink: 0; align-items: center; justify-content: space-around;
+            gap: 4rem; min-width: 100%; animation: scroll 20s linear infinite;
+        }
+        @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+        .tech-icon { font-size: 3rem; color: #64748b; transition: all 0.4s ease; filter: grayscale(1); opacity: 0.5; }
+        .tech-icon:hover { filter: grayscale(0); opacity: 1; transform: scale(1.2); }
 
         /* GOJO MODE OVERRIDES */
         body.gojo-mode .glass-card { border-color: rgba(59, 130, 246, 0.2); }
         body.gojo-mode .glass-card:hover { 
-            border-color: #3b82f6; 
-            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.5); 
+            border-color: #3b82f6; box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.5); 
         }
         body.gojo-mode .glass-card:hover .card-btn {
-            background-color: #3b82f6;
-            border-color: #3b82f6;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            background-color: #3b82f6; border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
         }
         body.gojo-mode .text-accent { color: #3b82f6; }
         body.gojo-mode .bg-accent { background-color: #3b82f6; }
-        body.gojo-mode .border-accent { border-color: #3b82f6; }
         body.gojo-mode .name-glow { text-shadow: 0 0 15px rgba(59, 130, 246, 0.8); }
+        body.gojo-mode .tech-icon:hover { color: #3b82f6; text-shadow: 0 0 15px rgba(59, 130, 246, 0.5); }
+        /* Yumeko hover color */
+        body:not(.gojo-mode) .tech-icon:hover { color: #dc2626; text-shadow: 0 0 15px rgba(220, 38, 38, 0.5); }
 
         .video-bg {
             position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
@@ -76,18 +80,7 @@
 
         #mobile-video { display: block; }
         #desktop-video { display: none; }
-        @media (min-width: 768px) {
-            #mobile-video { display: none; }
-            #desktop-video { display: block; }
-        }
-
-        .contact-link {
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            padding: 12px; border-radius: 12px; background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;
-            font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
-        }
-        .contact-link:hover { background: rgba(255,255,255,0.08); transform: translateY(-3px); border-color: currentColor; }
+        @media (min-width: 768px) { #mobile-video { display: none; } #desktop-video { display: block; } }
 
         .mode-toggle {
             position: fixed; top: 20px; right: 20px; z-index: 100;
@@ -113,7 +106,7 @@
 
     <div id="overlay" class="fixed inset-0 bg-gradient-to-b from-black/70 via-black/85 to-red-950/40 -z-[90] transition-all duration-700"></div>
 
-    <div class="relative z-10 min-h-screen flex items-center justify-center py-12 px-6">
+    <div class="relative z-10 min-h-screen flex flex-col items-center justify-center py-12 px-6">
         <div class="max-w-4xl w-full">
             
             <div class="text-center mb-10">
@@ -125,7 +118,7 @@
                 <p class="text-accent font-mono tracking-[0.4em] uppercase text-sm mt-2">Jira Developer</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
                 <a href="projects.html" class="glass-card p-10 rounded-[2.5rem] group text-center">
                     <h2 class="text-2xl font-black uppercase italic mb-1 transition-colors">Project Registry</h2>
                 </a>
@@ -136,30 +129,51 @@
                 </a>
             </div>
 
+            <div class="mb-12">
+                <p class="text-center text-slate-500 font-mono text-[10px] font-black uppercase tracking-[0.4em] mb-6">System Architecture & Tooling</p>
+                <div class="marquee">
+                    <div class="marquee-content">
+                        <i class="devicon-html5-plain tech-icon"></i>
+                        <i class="devicon-css3-plain tech-icon"></i>
+                        <i class="devicon-javascript-plain tech-icon"></i>
+                        <i class="devicon-python-plain tech-icon"></i>
+                        <i class="devicon-azuresqldatabase-plain tech-icon"></i>
+                        <i class="devicon-jira-plain tech-icon"></i> </div>
+                    <div class="marquee-content" aria-hidden="true">
+                        <i class="devicon-html5-plain tech-icon"></i>
+                        <i class="devicon-css3-plain tech-icon"></i>
+                        <i class="devicon-javascript-plain tech-icon"></i>
+                        <i class="devicon-python-plain tech-icon"></i>
+                        <i class="devicon-azuresqldatabase-plain tech-icon"></i>
+                        <i class="devicon-jira-plain tech-icon"></i>
+                    </div>
+                </div>
+            </div>
+
             <div class="glass-card p-8 md:p-10 rounded-[2.5rem] border-b-4 border-accent">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div class="space-y-4">
                         <div class="flex items-center gap-3">
                             <i data-lucide="map-pin" class="w-5 h-5 text-accent"></i>
-                            <span class="text-sm font-bold text-slate-200">Santa Rosa City, Laguna, Philippines</span>
+                            <span class="text-sm font-bold text-slate-200">Pasig, Metro Manila, Philippines</span>
                         </div>
                         <div class="flex items-center gap-3">
                             <i data-lucide="mail" class="w-5 h-5 text-accent"></i>
-                            <span class="text-sm font-bold text-slate-200">charvinpe08@gmail.com</span>
+                            <span class="text-sm font-bold text-slate-200">charvinkale@email.com</span>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-3">
-                        <a href="viber://chat?number=+639956674596" class="contact-link text-[#7360f2]">
+                        <a href="viber://chat?number=+639956674596" class="contact-link flex items-center justify-center gap-2 p-3 rounded-xl border border-white/10 text-xs font-bold uppercase transition-all hover:border-[#7360f2] hover:text-[#7360f2]">
                             <i data-lucide="message-circle" class="w-4 h-4"></i> Viber
                         </a>
-                        <a href="https://www.linkedin.com/in/charvin-kale-pe%C3%B1averde-1958ab320/" target="_blank" class="contact-link text-[#0077b5]">
+                        <a href="#" target="_blank" class="contact-link flex items-center justify-center gap-2 p-3 rounded-xl border border-white/10 text-xs font-bold uppercase transition-all hover:border-[#0077b5] hover:text-[#0077b5]">
                             <i data-lucide="linkedin" class="w-4 h-4"></i> LinkedIn
                         </a>
-                        <a href="https://github.com/mntre/ckale.github.io/blob/main/README.md" target="_blank" class="contact-link text-white">
+                        <a href="#" target="_blank" class="contact-link flex items-center justify-center gap-2 p-3 rounded-xl border border-white/10 text-xs font-bold uppercase transition-all hover:border-white hover:text-white">
                             <i data-lucide="github" class="w-4 h-4"></i> GitHub
                         </a>
-                        <a href="resume.pdf" download class="contact-link bg-accent text-white border-none hover:bg-white hover:text-black">
+                        <a href="resume.pdf" download class="bg-accent text-white flex items-center justify-center gap-2 p-3 rounded-xl text-xs font-bold uppercase transition-all hover:bg-white hover:text-black">
                             <i data-lucide="download" class="w-4 h-4"></i> Resume
                         </a>
                     </div>
