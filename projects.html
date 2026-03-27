@@ -3,79 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Registry | Yumeko Jabami Edition</title>
+    <title>Project Registry | Domain Expansion</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=JetBrains+Mono:wght@400;700&display=swap');
         
-        body { font-family: 'Space Grotesk', sans-serif; background-color: #000000; }
+        body { font-family: 'Space Grotesk', sans-serif; background-color: #000000; transition: background-color 0.5s ease; }
         
         .glass {
             background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(220, 38, 38, 0.15);
+            transition: all 0.4s ease;
         }
-        
-        /* Kakegurui Red Hover Effect */
+
+        /* ACCENT COLORS */
+        .text-accent { color: #dc2626; transition: color 0.5s; }
+        .bg-accent { background-color: #dc2626; transition: background-color 0.5s; }
+        .border-accent { border-color: #dc2626; transition: border-color 0.5s; }
+        .text-void { color: #ffffff; text-shadow: 0 0 15px rgba(220, 38, 38, 0.5); transition: text-shadow 0.5s; }
+
+        /* GOJO MODE OVERRIDES */
+        body.gojo-mode .glass { border-color: rgba(59, 130, 246, 0.4); }
+        body.gojo-mode .text-accent { color: #3b82f6; }
+        body.gojo-mode .bg-accent { background-color: #3b82f6; }
+        body.gojo-mode .border-accent { border-color: #3b82f6; }
+        body.gojo-mode .text-void { text-shadow: 0 0 15px rgba(59, 130, 246, 0.8); }
+        body.gojo-mode .project-card:hover { 
+            border-color: rgba(59, 130, 246, 0.6); 
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.2); 
+        }
+
         .project-card:hover {
-            border-color: rgba(220, 38, 38, 0.6);
             transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(220, 38, 38, 0.2);
         }
 
-        /* Responsive Video Background Logic */
         .video-bg {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -100;
-            transform: translateX(-50%) translateY(-50%);
-            object-fit: cover;
+            position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
+            z-index: -100; transform: translateX(-50%) translateY(-50%); object-fit: cover;
         }
 
-        /* Default: Show Mobile Video, Hide Desktop */
         #mobile-video { display: block; }
         #desktop-video { display: none; }
-
-        /* Desktop Breakpoint: Show Desktop Video, Hide Mobile */
         @media (min-width: 768px) {
             #mobile-video { display: none; }
             #desktop-video { display: block; }
         }
 
-        .text-void { color: #ffffff; text-shadow: 0 0 15px rgba(220, 38, 38, 0.5); }
+        .mode-toggle {
+            position: fixed; top: 20px; right: 20px; z-index: 100;
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2); padding: 12px; border-radius: 50%; cursor: pointer;
+        }
     </style>
 </head>
 <body class="min-h-screen text-white overflow-x-hidden">
 
+    <button onclick="toggleDomain()" class="mode-toggle">
+        <svg id="toggle-icon" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+    </button>
+
     <video autoplay muted loop playsinline id="mobile-video" class="video-bg">
-        <source src="girl1.mp4" type="video/mp4">
+        <source id="src-mobile" src="girl1.mp4" type="video/mp4">
     </video>
-
     <video autoplay muted loop playsinline id="desktop-video" class="video-bg">
-        <source src="girl2.mp4" type="video/mp4">
+        <source id="src-desktop" src="girl2.mp4" type="video/mp4">
     </video>
 
-    <div class="fixed inset-0 bg-gradient-to-b from-black/60 via-black/85 to-red-950/40 -z-[90]"></div>
+    <div id="overlay" class="fixed inset-0 bg-gradient-to-b from-black/60 via-black/85 to-red-950/40 -z-[90] transition-all duration-700"></div>
 
     <div class="relative z-10 py-12 px-4 md:px-12">
         <div class="max-w-5xl mx-auto">
             
-            <div class="flex justify-between items-center mb-16 border-b border-red-600/30 pb-8">
-                <a href="index.html" class="group flex items-center text-slate-400 hover:text-red-500 transition-all">
-                    <div class="p-2 bg-red-950/40 rounded-lg mr-3 group-hover:bg-red-600 group-hover:text-white transition-all">
+            <div class="flex justify-between items-center mb-16 border-b border-accent/30 pb-8">
+                <a href="index.html" class="group flex items-center text-slate-400 hover:text-accent transition-all">
+                    <div class="p-2 bg-accent/10 rounded-lg mr-3 group-hover:bg-accent group-hover:text-white transition-all">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
                     </div>
                     <span class="text-[10px] font-black uppercase tracking-widest font-mono">Leave the Table</span>
                 </a>
                 <div class="text-right">
                     <h1 class="text-3xl font-black uppercase italic tracking-tighter text-void">Project Registry</h1>
-                    <p class="text-[10px] text-red-500 font-bold uppercase tracking-[0.4em]">Dealer Status: Active</p>
+                    <p class="text-[10px] text-accent font-bold uppercase tracking-[0.4em]">Dealer Status: Active</p>
                 </div>
             </div>
 
@@ -84,11 +95,11 @@
                 <div class="glass project-card p-10 rounded-[2.5rem] transition-all relative overflow-hidden group">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                         <div>
-                            <span class="text-red-500 text-[10px] font-black uppercase tracking-widest font-mono">Betting Round 01</span>
-                            <h2 class="text-2xl font-black uppercase italic tracking-tight group-hover:text-red-400 transition-colors">People and Culture</h2>
+                            <span class="text-accent text-[10px] font-black uppercase tracking-widest font-mono">Betting Round 01</span>
+                            <h2 class="text-2xl font-black uppercase italic tracking-tight group-hover:text-accent transition-colors">People and Culture</h2>
                         </div>
                         <div class="flex gap-2">
-                            <span class="px-3 py-1 bg-red-600/10 text-red-500 rounded-full text-[9px] font-bold border border-red-600/20">Project Intake</span>
+                            <span class="px-3 py-1 bg-accent/10 text-accent rounded-full text-[9px] font-bold border border-accent/20">Project Intake</span>
                             <span class="px-3 py-1 bg-white/5 text-slate-300 rounded-full text-[9px] font-bold border border-white/10">Analytics Logs</span>
                         </div>
                     </div>
@@ -97,17 +108,17 @@
                     </p>
                 </div>
 
-                <div class="glass project-card p-10 rounded-[2.5rem] border-l-4 border-l-red-600 transition-all">
+                <div class="glass project-card p-10 rounded-[2.5rem] border-l-4 border-accent transition-all">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                         <div>
                             <div class="flex items-center gap-2 mb-1">
-                                <span class="text-red-500 text-[10px] font-black uppercase tracking-widest font-mono">Betting Round 02</span>
-                                <span class="text-[8px] bg-red-600 text-white px-2 py-0.5 font-black uppercase rounded tracking-widest">All In</span>
+                                <span class="text-accent text-[10px] font-black uppercase tracking-widest font-mono">Betting Round 02</span>
+                                <span class="text-[8px] bg-accent text-white px-2 py-0.5 font-black uppercase rounded tracking-widest">All In</span>
                             </div>
                             <h2 class="text-2xl font-black uppercase italic tracking-tight">Global Business Group</h2>
                         </div>
                         <div class="flex gap-2">
-                            <span class="px-3 py-1 bg-red-600/10 text-red-500 rounded-full text-[9px] font-bold border border-red-600/20">Pre-Sales</span>
+                            <span class="px-3 py-1 bg-accent/10 text-accent rounded-full text-[9px] font-bold border border-accent/20">Pre-Sales</span>
                             <span class="px-3 py-1 bg-white/5 text-slate-300 rounded-full text-[9px] font-bold border border-white/10">Service Delivery</span>
                         </div>
                     </div>
@@ -120,11 +131,43 @@
             
             <div class="mt-20 text-center">
                 <p class="text-slate-600 text-[10px] uppercase font-bold tracking-[0.5em] mb-6">The stakes have never been higher</p>
-                <a href="viber://chat?number=+639956674596" class="inline-block px-12 py-5 bg-red-600 text-white font-black uppercase tracking-widest rounded-2xl hover:bg-white hover:text-black transition-all shadow-xl shadow-red-900/20">
+                <a href="viber://chat?number=+639956674596" class="inline-block px-12 py-5 bg-accent text-white font-black uppercase tracking-widest rounded-2xl hover:bg-white hover:text-black transition-all shadow-xl shadow-accent/20">
                     Discuss System Implementation
                 </a>
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleDomain() {
+            const body = document.body;
+            const overlay = document.getElementById('overlay');
+            const vidMobile = document.getElementById('mobile-video');
+            const vidDesktop = document.getElementById('desktop-video');
+            const srcMobile = document.getElementById('src-mobile');
+            const srcDesktop = document.getElementById('src-desktop');
+
+            body.classList.toggle('gojo-mode');
+
+            if (body.classList.contains('gojo-mode')) {
+                srcMobile.src = "gojo2.mp4";
+                srcDesktop.src = "gojo1.mp4";
+                overlay.classList.replace('to-red-950/40', 'to-blue-950/40');
+                localStorage.setItem('domainMode', 'gojo');
+            } else {
+                srcMobile.src = "girl1.mp4";
+                srcDesktop.src = "girl2.mp4";
+                overlay.classList.replace('to-blue-950/40', 'to-red-950/40');
+                localStorage.setItem('domainMode', 'yumeko');
+            }
+            vidMobile.load(); vidDesktop.load();
+        }
+
+        window.onload = () => {
+            if (localStorage.getItem('domainMode') === 'gojo') {
+                toggleDomain();
+            }
+        };
+    </script>
 </body>
 </html>
