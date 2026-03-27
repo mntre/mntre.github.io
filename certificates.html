@@ -3,66 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verified Credentials | Yumeko Jabami Edition</title>
+    <title>Verified Credentials | Domain Expansion</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=JetBrains+Mono:wght@400;700&display=swap');
         
-        body { font-family: 'Space Grotesk', sans-serif; background-color: #000000; }
+        body { font-family: 'Space Grotesk', sans-serif; background-color: #000000; transition: background-color 0.5s ease; }
         
         .glass-dark {
             background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(220, 38, 38, 0.2);
+            transition: all 0.4s ease;
         }
 
+        /* ACCENT COLORS (Toggleable) */
+        .text-accent { color: #dc2626; transition: color 0.5s; }
+        .bg-accent { background-color: #dc2626; transition: background-color 0.5s; }
+        .border-accent { border-color: #dc2626; transition: border-color 0.5s; }
+        .text-kakegurui { color: #ffffff; text-shadow: 0 0 10px rgba(220, 38, 38, 0.8); transition: text-shadow 0.5s; }
+
+        /* GOJO MODE OVERRIDES */
+        body.gojo-mode .glass-dark { border-color: rgba(59, 130, 246, 0.4); }
+        body.gojo-mode .text-accent { color: #3b82f6; }
+        body.gojo-mode .bg-accent { background-color: #3b82f6; }
+        body.gojo-mode .border-accent { border-color: #3b82f6; }
+        body.gojo-mode .text-kakegurui { text-shadow: 0 0 15px rgba(59, 130, 246, 0.8); }
+
         .video-bg {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -100;
-            transform: translateX(-50%) translateY(-50%);
-            object-fit: cover;
+            position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
+            z-index: -100; transform: translateX(-50%) translateY(-50%); object-fit: cover;
         }
 
         #mobile-video { display: block; }
         #desktop-video { display: none; }
-
         @media (min-width: 768px) {
             #mobile-video { display: none; }
             #desktop-video { display: block; }
         }
 
-        .text-kakegurui { 
-            color: #ffffff; 
-            text-shadow: 0 0 10px rgba(220, 38, 38, 0.8); 
+        .mode-toggle {
+            position: fixed; top: 20px; right: 20px; z-index: 100;
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2); padding: 12px; border-radius: 50%; cursor: pointer;
         }
     </style>
 </head>
 <body class="min-h-screen text-white overflow-x-hidden">
 
+    <button onclick="toggleDomain()" class="mode-toggle">
+        <svg id="toggle-icon" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+    </button>
+
     <video autoplay muted loop playsinline id="mobile-video" class="video-bg">
-        <source src="girl1.mp4" type="video/mp4">
+        <source id="src-mobile" src="girl1.mp4" type="video/mp4">
     </video>
-
     <video autoplay muted loop playsinline id="desktop-video" class="video-bg">
-        <source src="girl2.mp4" type="video/mp4">
+        <source id="src-desktop" src="girl2.mp4" type="video/mp4">
     </video>
 
-    <div class="fixed inset-0 bg-gradient-to-b from-black/60 via-black/80 to-red-950/40 -z-[90]"></div>
+    <div id="overlay" class="fixed inset-0 bg-gradient-to-b from-black/60 via-black/80 to-red-950/40 -z-[90] transition-all duration-700"></div>
 
     <div class="relative z-10 py-12 px-6">
         <div class="max-w-6xl mx-auto">
             
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-6 border-b border-red-600/30 pb-8">
-                <a href="index.html" class="group flex items-center gap-3 text-red-500 font-black hover:text-white transition-all tracking-[0.2em] text-xs font-mono">
-                    <span class="text-2xl group-hover:-translate-x-2 transition-transform">←</span> 
-                    LEAVE THE TABLE
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-16 gap-6 border-b border-accent/30 pb-8">
+                <a href="index.html" class="group flex items-center gap-3 text-accent font-black hover:text-white transition-all tracking-[0.2em] text-xs font-mono">
+                    <span class="text-2xl group-hover:-translate-x-2 transition-transform">←</span> LEAVE THE TABLE
                 </a>
                 <div class="text-right">
                     <h1 class="text-4xl font-black uppercase italic tracking-tighter text-kakegurui">Technical Credentials</h1>
@@ -71,39 +80,39 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                 
-                <div class="glass-dark rounded-[2rem] overflow-hidden group transition-all duration-500 hover:shadow-[0_0_50px_rgba(220,38,38,0.3)] border-t-4 border-red-600">
+                <div class="glass-dark rounded-[2rem] overflow-hidden group transition-all duration-500 border-t-4 border-accent">
                     <div class="overflow-hidden bg-black/60 relative">
-                        <img src="cert1.jpg" alt="Atlassian ITSM" class="w-full h-72 object-contain p-6 transition-transform duration-700 group-hover:scale-110">
+                        <img src="cert1.jpg" class="w-full h-72 object-contain p-6 transition-transform duration-700 group-hover:scale-110">
                     </div>
                     <div class="p-10">
-                        <span class="text-[10px] font-mono text-red-500 uppercase tracking-widest mb-2 block font-bold">Winning Hand</span>
-                        <h3 class="text-2xl font-black leading-tight uppercase tracking-tight italic">Atlassian IT Service Management (ITSM) Professional Certificate</h3>
+                        <span class="text-[10px] font-mono text-accent uppercase tracking-widest mb-2 block font-bold">Winning Hand</span>
+                        <h3 class="text-2xl font-black leading-tight uppercase tracking-tight italic">Atlassian IT Service Management (ITSM)</h3>
                     </div>
                 </div>
 
-                <div class="glass-dark rounded-[2rem] overflow-hidden group transition-all duration-500 hover:shadow-[0_0_50px_rgba(220,38,38,0.3)] border-t-4 border-slate-100">
+                <div class="glass-dark rounded-[2rem] overflow-hidden group transition-all duration-500 border-t-4 border-slate-100">
                     <div class="overflow-hidden bg-black/60 relative">
-                        <img src="cert2.jpg" alt="Jira Administration Guide" class="w-full h-72 object-contain p-6 transition-transform duration-700 group-hover:scale-110">
+                        <img src="cert2.jpg" class="w-full h-72 object-contain p-6 transition-transform duration-700 group-hover:scale-110">
                     </div>
                     <div class="p-10">
                         <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest mb-2 block font-bold">The Dealer's Logic</span>
-                        <h3 class="text-2xl font-black leading-tight uppercase tracking-tight italic">Complete Guide to Jira Administration: Configuration & Automation</h3>
+                        <h3 class="text-2xl font-black leading-tight uppercase tracking-tight italic">Jira Administration: Configuration & Automation</h3>
                     </div>
                 </div>
 
-                <div class="glass-dark rounded-[2rem] overflow-hidden group transition-all duration-500 hover:shadow-[0_0_50px_rgba(220,38,38,0.3)] border-t-4 border-red-600">
+                <div class="glass-dark rounded-[2rem] overflow-hidden group transition-all duration-500 border-t-4 border-accent">
                     <div class="overflow-hidden bg-black/60 relative">
-                        <img src="cert3.jpg" alt="Forge Fundamentals" class="w-full h-72 object-contain p-6 transition-transform duration-700 group-hover:scale-110">
+                        <img src="cert3.jpg" class="w-full h-72 object-contain p-6 transition-transform duration-700 group-hover:scale-110">
                     </div>
                     <div class="p-10">
-                        <span class="text-[10px] font-mono text-red-500 uppercase tracking-widest mb-2 block font-bold">High Roller App-Dev</span>
+                        <span class="text-[10px] font-mono text-accent uppercase tracking-widest mb-2 block font-bold">High Roller App-Dev</span>
                         <h3 class="text-2xl font-black leading-tight uppercase tracking-tight italic">Atlassian Credentialed in Forge Fundamentals</h3>
                     </div>
                 </div>
 
-                <div class="glass-dark rounded-[2rem] overflow-hidden group transition-all duration-500 hover:shadow-[0_0_50px_rgba(220,38,38,0.3)] border-t-4 border-slate-100">
+                <div class="glass-dark rounded-[2rem] overflow-hidden group transition-all duration-500 border-t-4 border-slate-100">
                     <div class="overflow-hidden bg-black/60 relative">
-                        <img src="cert4.jpg" alt="Rovo Fundamentals" class="w-full h-72 object-contain p-6 transition-transform duration-700 group-hover:scale-110">
+                        <img src="cert4.jpg" class="w-full h-72 object-contain p-6 transition-transform duration-700 group-hover:scale-110">
                     </div>
                     <div class="p-10">
                         <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest mb-2 block font-bold">Artificial Intelligence Luck</span>
@@ -111,48 +120,78 @@
                     </div>
                 </div>
 
-                <div class="glass-dark rounded-[2rem] overflow-hidden group transition-all duration-500 hover:shadow-[0_0_50px_rgba(220,38,38,0.3)] border-t-4 border-red-600">
+                <div class="glass-dark rounded-[2rem] overflow-hidden group transition-all duration-500 border-t-4 border-accent">
                     <div class="overflow-hidden bg-black/60 relative">
-                        <img src="cert5.jpg" alt="Loom Fundamentals" class="w-full h-72 object-contain p-6 transition-transform duration-700 group-hover:scale-110">
+                        <img src="cert5.jpg" class="w-full h-72 object-contain p-6 transition-transform duration-700 group-hover:scale-110">
                     </div>
                     <div class="p-10">
-                        <span class="text-[10px] font-mono text-red-500 uppercase tracking-widest mb-2 block font-bold">Visual Communication Stake</span>
+                        <span class="text-[10px] font-mono text-accent uppercase tracking-widest mb-2 block font-bold">Visual Communication Stake</span>
                         <h3 class="text-2xl font-black leading-tight uppercase tracking-tight italic">Atlassian Credentialed in Loom Fundamentals</h3>
                     </div>
                 </div>
 
-                <div class="glass-dark rounded-[2rem] overflow-hidden group transition-all duration-500 hover:shadow-[0_0_50_rgba(220,38,38,0.3)] border-t-4 border-slate-100">
+                <div class="glass-dark rounded-[2rem] overflow-hidden group transition-all duration-500 border-t-4 border-slate-100">
                     <div class="overflow-hidden bg-black/60 relative">
-                        <img src="cert6.jpg" alt="Agile Foundations PMI" class="w-full h-72 object-contain p-6 transition-transform duration-700 group-hover:scale-110">
+                        <img src="cert6.jpg" class="w-full h-72 object-contain p-6 transition-transform duration-700 group-hover:scale-110">
                     </div>
                     <div class="p-10">
                         <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest mb-2 block font-bold">Strategic Bluff</span>
-                        <h3 class="text-2xl font-black leading-tight uppercase tracking-tight italic">Agile Foundations by Project Management Institute (PMI)</h3>
+                        <h3 class="text-2xl font-black leading-tight uppercase tracking-tight italic">Agile Foundations by PMI</h3>
                     </div>
                 </div>
 
-                <div class="glass-dark rounded-[2rem] overflow-hidden group transition-all duration-500 hover:shadow-[0_0_50px_rgba(220,38,38,0.3)] border-t-4 border-red-600 md:col-span-2">
+                <div class="glass-dark rounded-[2rem] overflow-hidden group transition-all duration-500 border-t-4 border-accent md:col-span-2">
                     <div class="overflow-hidden bg-black/60 relative">
-                        <img src="cert7.jpg" alt="Atlassian Agile PM" class="w-full h-72 object-contain p-6 transition-transform duration-700 group-hover:scale-110">
+                        <img src="cert7.jpg" class="w-full h-72 object-contain p-6 transition-transform duration-700 group-hover:scale-110">
                     </div>
                     <div class="p-10">
-                        <span class="text-[10px] font-mono text-red-500 uppercase tracking-widest mb-2 block font-bold">The Ultimate Gamble</span>
-                        <h3 class="text-2xl font-black leading-tight uppercase tracking-tight italic">Atlassian Agile Project Management Professional Certificate</h3>
+                        <span class="text-[10px] font-mono text-accent uppercase tracking-widest mb-2 block font-bold">The Ultimate Gamble</span>
+                        <h3 class="text-2xl font-black leading-tight uppercase tracking-tight italic">Atlassian Agile Project Management Professional</h3>
                     </div>
                 </div>
 
             </div>
 
-            <div class="mt-20 p-10 rounded-[3rem] glass-dark border border-red-600/20 text-center relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-1 h-full bg-red-600"></div>
-                <p class="italic text-slate-300 text-lg mb-4">
-                    "Continuous learning is the core of effective automation. These certifications represent my commitment to mastering the Atlassian ecosystem."
-                </p>
-                <p class="text-[10px] font-mono text-red-600 font-bold uppercase tracking-[0.5em]">Betting on Knowledge</p>
+            <div class="mt-20 p-10 rounded-[3rem] glass-dark border border-accent/20 text-center relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-accent"></div>
+                <p class="italic text-slate-300 text-lg mb-4">"Continuous learning is the core of effective automation."</p>
+                <p class="text-[10px] font-mono text-accent font-bold uppercase tracking-[0.5em]">Betting on Knowledge</p>
             </div>
 
         </div>
     </div>
 
+    <script>
+        function toggleDomain() {
+            const body = document.body;
+            const overlay = document.getElementById('overlay');
+            const vidMobile = document.getElementById('mobile-video');
+            const vidDesktop = document.getElementById('desktop-video');
+            const srcMobile = document.getElementById('src-mobile');
+            const srcDesktop = document.getElementById('src-desktop');
+
+            body.classList.toggle('gojo-mode');
+
+            if (body.classList.contains('gojo-mode')) {
+                srcMobile.src = "gojo2.mp4";
+                srcDesktop.src = "gojo1.mp4";
+                overlay.classList.replace('to-red-950/40', 'to-blue-950/40');
+                localStorage.setItem('domainMode', 'gojo');
+            } else {
+                srcMobile.src = "girl1.mp4";
+                srcDesktop.src = "girl2.mp4";
+                overlay.classList.replace('to-blue-950/40', 'to-red-950/40');
+                localStorage.setItem('domainMode', 'yumeko');
+            }
+            vidMobile.load(); vidDesktop.load();
+        }
+
+        // Auto-load preference
+        window.onload = () => {
+            if (localStorage.getItem('domainMode') === 'gojo') {
+                toggleDomain();
+            }
+        };
+    </script>
 </body>
 </html>
